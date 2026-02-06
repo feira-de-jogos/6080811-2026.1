@@ -44,7 +44,26 @@ wifi --> https
 https --> websocket
 ```
 
-## Ferramentas
+## Referências
+
+Livros:
+
+- [Level Up! - um guia para o _design_ de grandes jogos](https://app.minhabiblioteca.com.br/reader/books/9788521207016/), de Scott Rogers.
+- Regras do jogo: fundamentos do design de jogos, de Katie Salen e Eric Zimmerman:
+  - [volume 1](https://app.minhabiblioteca.com.br/reader/books/9788521206538/)
+  - [volume 2](https://app.minhabiblioteca.com.br/reader/books/9788521206545/)
+  - [volume 3](https://app.minhabiblioteca.com.br/reader/books/9788521206552/)
+  - [volume 4](https://app.minhabiblioteca.com.br/reader/books/9788521206569/)
+
+Vídeos:
+
+- [Game Makers' Toolkit](https://www.youtube.com/@GMTK)
+
+Modelos:
+
+- [*Game design template*](/gdd.md)
+
+Ferramentas
 
 - [GitHub Education](https://github.com/education)
 - [Canva Pro](https://www.canva.com/pt_br/pro/)
