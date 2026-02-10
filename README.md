@@ -70,6 +70,7 @@ Livros:
   - As Crônicas Marcianas, Ray Bradbury
   - As Fontes do Paraíso, Arthur C. Clarke
   - Carbono Alterado, Richard K. Morgan
+  - Cinco por Infinito, Esteban Maroto
   - Devoradores de Estrelas, Andy Weir
   - Duna / O Messias de Duna / Os Filhos de Duna, Frank Herbert
   - Encontro com Rama / O Enigma de Rama / Jardim de Rama / A Revelação de Rama, Arthur C. Clarke
@@ -81,6 +82,7 @@ Livros:
   - Justiça Ancilar, Ann Leckie
   - Leviatã Desperta, James S. A. Corey
   - Nove Amanhãs, Isaac Asimov
+  - O Eternauta, Héctor Germán Oesterheld e Francisco Solano López
   - O Fim da Eternidade, Isaac Asimov
   - O Fim da Infância, Arthur C. Clarke
   - O Planeta dos Macacos, Pierre Boulle
