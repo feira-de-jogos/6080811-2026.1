@@ -114,3 +114,19 @@ Ferramentas
 - [GitHub Education](https://github.com/education)
 - [Canva Pro](https://www.canva.com/pt_br/pro/)
 - [Gemini Pro](https://gemini.google.com/)
+
+## Jogos
+
+1. [Abissal](https://github.com/starlootgames/Abissal)
+1. [Astronautica](https://github.com/kepler-442c/astronautica)
+1. [Galacto](https://github.com/le-clar/Galacto)
+1. [Horizonte de Eventos](https://github.com/gargantua-games/horizonte-de-eventos)
+1. [Hyperdrive](https://github.com/hyperdrivecreators/hyperdrive)
+1. [Interstelar](http://github.com/teknoifsc/interestelar)
+1. [The Legend of Marquinhos](https://github.com/calabresogames/thelegendofmarquinhos)
+1. [Noé](https://github.com/jc-company-ifsc/Noe)
+1. [Sentinela](https://github.com/malugio/Sentinela)
+1. [Space Gun](https://github.com/space-000/space-gun)
+1. [Space IFSC](https://github.com/doisdevseumsonho/spaceifsc)
+1. [Space War](https://github.com/gremiogames/space-war)
+1. [Star Rush](http://github.com/pinkmilkway/Star-Rush)
