@@ -117,16 +117,18 @@ Ferramentas
 
 ## Jogos
 
-1. [Abissal](https://github.com/starlootgames/Abissal)
-1. [Astronautica](https://github.com/kepler-442c/astronautica)
-1. [Galacto](https://github.com/le-clar/Galacto)
-1. [Horizonte de Eventos](https://github.com/gargantua-games/horizonte-de-eventos)
-1. [Hyperdrive](https://github.com/hyperdrivecreators/hyperdrive)
-1. [Interstelar](http://github.com/teknoifsc/interestelar)
-1. [The Legend of Marquinhos](https://github.com/calabresogames/thelegendofmarquinhos)
-1. [Noé](https://github.com/jc-company-ifsc/Noe)
-1. [Sentinela](https://github.com/malugio/Sentinela)
-1. [Space Gun](https://github.com/space-000/space-gun)
-1. [Space IFSC](https://github.com/doisdevseumsonho/spaceifsc)
-1. [Space War](https://github.com/gremiogames/space-war)
-1. [Star Rush](http://github.com/pinkmilkway/Star-Rush)
+| Jogo | 1 |
+|-|-|
+| [Abissal](https://github.com/starlootgames/Abissal) | 6 |
+| [Astronautica](https://github.com/kepler-442c/astronautica) | 6 |
+| [Galacto](https://github.com/le-clar/Galacto) | 0 (sem receita) |
+| [Horizonte de Eventos](https://github.com/gargantua-games/horizonte-de-eventos) | 0 (sem receita) |
+| [Hyperdrive](https://github.com/hyperdrivecreators/hyperdrive) | 0 (sem acesso) |
+| [Interstelar](http://github.com/teknoifsc/interestelar) | 6 |
+| [The Legend of Marquinhos](https://github.com/calabresogames/thelegendofmarquinhos) | 0 (sem receita) |
+| [Noé](https://github.com/jc-company-ifsc/Noe) | 0 (sem acesso) |
+| [Sentinela](https://github.com/malugio/Sentinela) | 6 |
+| [Space Gun](https://github.com/space-000/space-gun) | 0 (sem acesso) |
+| [Space IFSC](https://github.com/doisdevseumsonho/spaceifsc) | 6 |
+| [Space War](https://github.com/gremiogames/space-war) | 6 |
+| [Star Rush](http://github.com/pinkmilkway/Star-Rush) | 6 |
