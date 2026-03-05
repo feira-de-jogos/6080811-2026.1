@@ -208,7 +208,7 @@
         {
          "columns":11,
          "firstgid":1,
-         "image":"..\/Downloads\/Assets\/SpaceStationAda\/SpaceStation_Tileset.png",
+         "image":"SpaceStationAda/SpaceStation_Tileset.png",
          "imageheight":128,
          "imagewidth":176,
          "margin":0,
@@ -221,7 +221,7 @@
         {
          "columns":22,
          "firstgid":89,
-         "image":"..\/Downloads\/Assets\/SpaceStationAda\/SpaceStation_Objects.png",
+         "image":"SpaceStationAda/SpaceStation_Objects.png",
          "imageheight":96,
          "imagewidth":352,
          "margin":0,
@@ -234,7 +234,7 @@
         {
          "columns":18,
          "firstgid":221,
-         "image":"..\/Downloads\/Assets\/SpaceStationAda\/SpaceStation_Turret_Sheet.png",
+         "image":"SpaceStationAda/SpaceStation_Turret_Sheet.png",
          "imageheight":64,
          "imagewidth":288,
          "margin":0,
@@ -247,7 +247,7 @@
         {
          "columns":16,
          "firstgid":293,
-         "image":"..\/Downloads\/Assets\/SpaceStationAda\/SpaceStation_Character_Sheet.png",
+         "image":"SpaceStationAda/SpaceStation_Character_Sheet.png",
          "imageheight":288,
          "imagewidth":256,
          "margin":0,
@@ -260,7 +260,7 @@
         {
          "columns":14,
          "firstgid":581,
-         "image":"Assets\/SpaceStationAda\/SpaceStation_Android_Sheet.png",
+         "image":"SpaceStationAda/SpaceStation_Android_Sheet.png",
          "imageheight":128,
          "imagewidth":224,
          "margin":0,

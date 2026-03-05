@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="80" height="45" tilewidth="16" tileheight="16" infinite="0" nextlayerid="15" nextobjectid="1">
  <tileset firstgid="1" name="SpaceStation_Tileset" tilewidth="16" tileheight="16" tilecount="88" columns="11">
-  <image source="../Downloads/Assets/SpaceStationAda/SpaceStation_Tileset.png" width="176" height="128"/>
+  <image source="SpaceStationAda/SpaceStation_Tileset.png" width="176" height="128"/>
  </tileset>
  <tileset firstgid="89" name="SpaceStation_Objects" tilewidth="16" tileheight="16" tilecount="132" columns="22">
-  <image source="../Downloads/Assets/SpaceStationAda/SpaceStation_Objects.png" width="352" height="96"/>
+  <image source="SpaceStationAda/SpaceStation_Objects.png" width="352" height="96"/>
  </tileset>
  <tileset firstgid="221" name="SpaceStation_Turret_Sheet" tilewidth="16" tileheight="16" tilecount="72" columns="18">
-  <image source="../Downloads/Assets/SpaceStationAda/SpaceStation_Turret_Sheet.png" width="288" height="64"/>
+  <image source="SpaceStationAda/SpaceStation_Turret_Sheet.png" width="288" height="64"/>
  </tileset>
  <tileset firstgid="293" name="SpaceStation_Character_Sheet" tilewidth="16" tileheight="16" tilecount="288" columns="16">
-  <image source="../Downloads/Assets/SpaceStationAda/SpaceStation_Character_Sheet.png" width="256" height="288"/>
+  <image source="SpaceStationAda/SpaceStation_Character_Sheet.png" width="256" height="288"/>
  </tileset>
  <tileset firstgid="581" name="SpaceStation_Android_Sheet" tilewidth="16" tileheight="16" tilecount="112" columns="14">
-  <image source="Assets/SpaceStationAda/SpaceStation_Android_Sheet.png" width="224" height="128"/>
+  <image source="SpaceStationAda/SpaceStation_Android_Sheet.png" width="224" height="128"/>
  </tileset>
  <layer id="5" name="fundo" width="80" height="45">
   <data encoding="base64">
