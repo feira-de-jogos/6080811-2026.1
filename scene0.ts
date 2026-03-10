@@ -1,15 +1,15 @@
 class scene0 extends Phaser.Scene {
+  player!: Phaser.Physics.Arcade.Sprite;
+  stars!: Phaser.Physics.Arcade.Group;
+  bombs!: Phaser.Physics.Arcade.Group;
+  platforms!: Phaser.Physics.Arcade.StaticGroup;
+  cursors!: Phaser.Types.Input.Keyboard.CursorKeys;
+  score: number = 0;
+  gameOver: boolean = false;
+  scoreText!: Phaser.GameObjects.Text;
+
   constructor() {
     super("scene0");
-
-    this.player;
-    this.stars;
-    this.bombs;
-    this.platforms;
-    this.cursors;
-    this.score = 0;
-    this.gameOver = false;
-    this.scoreText;
   }
 
   preload() {
@@ -62,7 +62,7 @@ class scene0 extends Phaser.Scene {
       setXY: { x: 12, y: 0, stepX: 70 },
     });
 
-    this.stars.children.iterate(function (child) {
+    this.stars.children.iterate((child) => {
       child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
     });
 
@@ -123,7 +123,7 @@ class scene0 extends Phaser.Scene {
     this.scoreText.setText("Score: " + this.score);
 
     if (this.stars.countActive(true) === 0) {
-      this.stars.children.iterate(function (child) {
+      this.stars.children.iterate((child) => {
         child.enableBody(true, child.x, 0, true, true);
       });
 

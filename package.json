@@ -1,0 +1,8 @@
+{
+  "devDependencies": {
+    "parcel": "^2.16.4"
+  },
+  "dependencies": {
+    "phaser": "^3.90.0"
+  }
+}
