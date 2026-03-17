@@ -13,6 +13,11 @@ class scene0 extends Phaser.Scene {
       frameHeight: 64,
     });
 
+    this.load.spritesheet("buttons", "assets/buttons.png", {
+      frameWidth: 32,
+      frameHeight: 32,
+    });
+
     this.load.plugin(
       "rexvirtualjoystickplugin",
       "./rexvirtualjoystickplugin.min.js",
@@ -95,6 +100,8 @@ class scene0 extends Phaser.Scene {
         this.zombie.anims.stop();
       }
     });
+
+    this.button = this.add.sprite(700, 350, "buttons", 10)
   }
 }
 
