@@ -5,64 +5,150 @@ class scene0 extends Phaser.Scene {
     this.threshold = 0.1;
     this.speed = 100;
     this.direction = undefined;
-    this.money = 0;
-    this.timer = 120;
   }
 
   preload() {
-    this.load.spritesheet("zombie", "assets/zombie.png", {
-      frameWidth: 64,
-      frameHeight: 64,
+    this.load.setPath("assets/");
+    this.load.tilemapTiledJSON("map", "map.json");
+    this.load.spritesheet("android", "SpaceStation_Android_Sheet.png", {
+      frameWidth: 32,
+      frameHeight: 32,
     });
-
-    this.load.spritesheet("buttons", "assets/buttons.png", {
+    this.load.spritesheet("character", "SpaceStation_Character_Sheet.png", {
+      frameWidth: 32,
+      frameHeight: 32,
+    });
+    this.load.image("objects", "SpaceStation_Objects.png");
+    this.load.spritesheet("projectiles", "SpaceStation_Projectiles_Sheet.png", {
+      frameWidth: 32,
+      frameHeight: 32,
+    });
+    this.load.image("tileset", "SpaceStation_Tileset.png");
+    this.load.spritesheet("turret", "SpaceStation_Turret_Sheet.png", {
       frameWidth: 32,
       frameHeight: 32,
     });
 
+    this.load.audio("music", "music.mp3");
+    this.load.audio("laser", "laser.mp3");
+
     this.load.plugin(
       "rexvirtualjoystickplugin",
-      "./rexvirtualjoystickplugin.min.js",
+      "../rexvirtualjoystickplugin.min.js",
       true,
     );
-
-    this.load.audio("music", "assets/music.mp3");
-    this.load.audio("laser", "assets/laser.mp3");
   }
 
   create() {
+    this.tilemap = this.make.tilemap({ key: "map" });
+
+    this.tilesetTileset = this.tilemap.addTilesetImage("tileset");
+    this.tilesetObjects = this.tilemap.addTilesetImage("objects");
+    this.tilesetTurret = this.tilemap.addTilesetImage("turret");
+    // this.tilesetCharacter = this.tilemap.addTilesetImage("character");
+    // this.tilesetAndroid = this.tilemap.addTilesetImage("android");
+
+    this.layerBackground = this.tilemap.createLayer("background", [
+      this.tilesetTileset,
+    ]);
+    this.layerGround = this.tilemap.createLayer("ground", [
+      this.tilesetTileset,
+    ]);
+    this.layerRoof = this.tilemap.createLayer("roof", [this.tilesetTileset]);
+    this.layerWalls = this.tilemap.createLayer("walls", [this.tilesetTileset]);
+    this.layerWallsUnder = this.tilemap.createLayer("walls_under", [
+      this.tilesetTileset,
+    ]);
+    this.layerWallsOver = this.tilemap.createLayer("walls_over", [
+      this.tilesetTileset,
+    ]);
+    this.layerLamps = this.tilemap.createLayer("lamps", [this.tilesetTileset]);
+    this.layerWindows = this.tilemap.createLayer("windows", [
+      this.tilesetTileset,
+    ]);
+    this.layerObjects = this.tilemap.createLayer("objects", [
+      this.tilesetTileset,
+    ]);
+    this.layerTeletransport = this.tilemap.createLayer("teletransport", [
+      this.tilesetTileset,
+    ]);
+    // this.layerCharacter = this.tilemap.createLayer("character", [
+    //   this.tilesetCharacter,
+    // ]);
+    // this.layerEnemy = this.tilemap.createLayer("enemy", [this.tilesetAndroid]);
+    this.layerPlatform = this.tilemap.createLayer("platform", [
+      this.tilesetTileset,
+    ]);
+    this.layerShelf = this.tilemap.createLayer("shelf", [this.tilesetTileset]);
+
+    this.player = this.physics.add.sprite(150, 600, "character", 0);
+
+    this.anims.create({
+      key: "standing-still",
+      frames: this.anims.generateFrameNumbers("character", {
+        start: 0,
+        end: 3,
+      }),
+      frameRate: 5,
+      repeat: -1,
+    });
+
+    this.anims.create({
+      key: "running",
+      frames: this.anims.generateFrameNumbers("character", {
+        start: 8,
+        end: 15,
+      }),
+      frameRate: 10,
+      repeat: -1,
+    });
+
+    this.anims.create({
+      key: "jumping",
+      frames: this.anims.generateFrameNumbers("character", {
+        start: 40,
+        end: 47,
+      }),
+      frameRate: 10,
+      repeat: -1,
+    });
+
+    this.physics.world.setBounds(
+      0,
+      0,
+      this.tilemap.widthInPixels,
+      this.tilemap.heightInPixels,
+    );
+    this.cameras.main.setBounds(
+      0,
+      0,
+      this.tilemap.widthInPixels,
+      this.tilemap.heightInPixels,
+    );
+    this.cameras.main.startFollow(this.player);
+
+    this.player.setCollideWorldBounds(true);
+
+    this.layerGround.setCollisionByProperty({ collides: true });
+    this.physics.add.collider(this.player, this.layerGround);
+
+    this.layerRoof.setCollisionByProperty({ collides: true });
+    this.physics.add.collider(this.player, this.layerRoof);
+
+    this.layerWalls.setCollisionByProperty({ collides: true });
+    this.physics.add.collider(this.player, this.layerWalls);
+
+    this.layerWallsUnder.setCollisionByProperty({ collides: true });
+    this.physics.add.collider(this.player, this.layerWallsUnder);
+
+    this.layerWallsOver.setCollisionByProperty({ collides: true });
+    this.physics.add.collider(this.player, this.layerWallsOver);
+
+    this.layerLamps.setCollisionByProperty({ collides: true });
+    this.physics.add.collider(this.player, this.layerLamps);
+
     this.music = this.sound.add("music", { loop: true }).play();
     this.laser = this.sound.add("laser");
-
-    this.anims.create({
-      key: "walk-up",
-      frames: this.anims.generateFrameNumbers("zombie", { start: 0, end: 7 }),
-      frameRate: 10,
-      repeat: -1,
-    });
-
-    this.anims.create({
-      key: "walk-left",
-      frames: this.anims.generateFrameNumbers("zombie", { start: 8, end: 15 }),
-      frameRate: 10,
-      repeat: -1,
-    });
-
-    this.anims.create({
-      key: "walk-right",
-      frames: this.anims.generateFrameNumbers("zombie", { start: 24, end: 31 }),
-      frameRate: 10,
-      repeat: -1,
-    });
-
-    this.anims.create({
-      key: "walk-down",
-      frames: this.anims.generateFrameNumbers("zombie", { start: 16, end: 23 }),
-      frameRate: 10,
-      repeat: -1,
-    });
-
-    this.zombie = this.physics.add.sprite(400, 225, "zombie", 20);
 
     this.joystick = this.plugins.get("rexvirtualjoystickplugin").add(this, {
       x: 100,
@@ -84,66 +170,46 @@ class scene0 extends Phaser.Scene {
       }
 
       if (this.joystick.force > 0) {
-        this.zombie.setVelocity(
-          this.direction.x * this.speed,
-          this.direction.y * this.speed,
-        );
-
         switch (true) {
-          case this.joystick.angle >= -135 && this.joystick.angle < -45:
-            this.zombie.anims.play("walk-up", true);
+          // jump
+          case this.joystick.angle >= -110 &&
+            this.joystick.angle < -50 &&
+            this.player.body.blocked.down:
+            this.player.setVelocityY(-150);
+            this.player.anims.play("jumping", true);
             break;
-          case this.joystick.angle >= -45 && this.joystick.angle < 45:
-            this.zombie.anims.play("walk-right", true);
+          // right
+          case this.joystick.angle >= -20 && this.joystick.angle < 20:
+            this.player.flipX = false;
+            this.player.setVelocityX(200);
+            if (this.player.body.blocked.down) {
+              this.player.anims.play("running", true);
+            }
             break;
-          case this.joystick.angle >= 45 && this.joystick.angle < 135:
-            this.zombie.anims.play("walk-down", true);
-            break;
-          case this.joystick.angle >= 135 || this.joystick.angle < -135:
-            this.zombie.anims.play("walk-left", true);
+          // left
+          case this.joystick.angle >= 160 || this.joystick.angle < -160:
+            this.player.flipX = true;
+            this.player.setVelocityX(-200);
+            if (this.player.body.blocked.down) {
+              this.player.anims.play("running", true);
+            }
             break;
         }
       } else {
-        this.zombie.setVelocity(0, 0);
-        this.zombie.anims.stop();
+        this.player.setVelocityX(0);
       }
     });
+  }
 
-    this.button = this.add
-      .sprite(700, 350, "buttons", 10)
-      .setScale(4)
-      .setInteractive()
-      .on("pointerdown", () => {
-        this.button.setFrame(11);
-      })
-      .on("pointerup", () => {
-        this.button.setFrame(10);
-        this.money += 10;
-        this.textMoney.setText(`Money: ${this.money}`);
-        this.laser.play();
-      });
-
-    this.textMoney = this.add.text(16, 16, `Money: ${this.money}`, {
-      fontSize: "32px",
-      fill: "#ffffff",
-    });
-
-    this.textTime = this.add.text(16, 50, `Time: ${this.timer}`, {
-      fontSize: "32px",
-      fill: "#ffffff",
-    });
-
-    setInterval(() => {
-      this.timer -= 1;
-      this.textTime.setText(`Time: ${this.timer}`);
-
-      if (this.timer <= 0) {
-        this.scene.stop();
-        this.scene.start("game-over");
-      }
-    }, 1000);
+  update() {
+    if (
+      this.player.body.velocity.x === 0 &&
+      this.player.body.velocity.y === 0 &&
+      this.player.body.blocked.down
+    ) {
+      this.player.anims.play("standing-still", true);
+    }
   }
 }
 
 export default scene0;
-0;
