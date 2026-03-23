@@ -9,7 +9,9 @@ class scene0 extends Phaser.Scene {
 
   preload() {
     this.load.setPath("assets/");
+
     this.load.tilemapTiledJSON("map", "map.json");
+
     this.load.spritesheet("android", "SpaceStation_Android_Sheet.png", {
       frameWidth: 32,
       frameHeight: 32,
@@ -69,9 +71,6 @@ class scene0 extends Phaser.Scene {
     this.layerObjects = this.tilemap.createLayer("objects", [
       this.tilesetTileset,
     ]);
-    this.layerTeletransport = this.tilemap.createLayer("teletransport", [
-      this.tilesetTileset,
-    ]);
     // this.layerCharacter = this.tilemap.createLayer("character", [
     //   this.tilesetCharacter,
     // ]);
@@ -82,6 +81,10 @@ class scene0 extends Phaser.Scene {
     this.layerShelf = this.tilemap.createLayer("shelf", [this.tilesetTileset]);
 
     this.player = this.physics.add.sprite(150, 600, "character", 0);
+
+    this.layerTeletransport = this.tilemap.createLayer("teletransport", [
+      this.tilesetTileset,
+    ]);
 
     this.anims.create({
       key: "standing-still",
