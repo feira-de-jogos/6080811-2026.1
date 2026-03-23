@@ -147,6 +147,15 @@ class scene0 extends Phaser.Scene {
     this.layerLamps.setCollisionByProperty({ collides: true });
     this.physics.add.collider(this.player, this.layerLamps);
 
+    this.layerPlatform.setCollisionByProperty({ collides: true });
+    this.physics.add.collider(this.player, this.layerPlatform);
+    this.layerPlatform.forEachTile((tile) => {
+      if (tile.properties.collides) {
+        //left, right, up, down
+        tile.setCollision(false, false, true, false);
+      }
+    });
+
     this.music = this.sound.add("music", { loop: true }).play();
     this.laser = this.sound.add("laser");
 
