@@ -35,7 +35,7 @@ class scene0 extends Phaser.Scene {
       frameHeight: 32,
     });
 
-    // this.load.audio("music", "music.mp3");
+    this.load.audio("music", "music.mp3");
     this.load.audio("laser", "laser.mp3");
 
     this.load.plugin(
@@ -121,7 +121,6 @@ class scene0 extends Phaser.Scene {
       frameRate: 5,
       repeat: -1,
     });
-
     this.anims.create({
       key: "running",
       frames: this.anims.generateFrameNumbers("character", {
@@ -131,7 +130,6 @@ class scene0 extends Phaser.Scene {
       frameRate: 10,
       repeat: -1,
     });
-
     this.anims.create({
       key: "jumping",
       frames: this.anims.generateFrameNumbers("character", {
@@ -185,7 +183,7 @@ class scene0 extends Phaser.Scene {
       }
     });
 
-    // this.music = this.sound.add("music", { loop: true }).play();
+    this.music = this.sound.add("music", { loop: true }).play();
     this.laser = this.sound.add("laser");
 
     this.joystick = this.plugins.get("rexvirtualjoystickplugin").add(this, {
@@ -200,14 +198,13 @@ class scene0 extends Phaser.Scene {
       const angle = Phaser.Math.DegToRad(this.joystick.angle);
       const force = this.joystick.force;
 
-      if (force > this.threshold) {
+      if (force > this.threshold)
         this.direction = new Phaser.Math.Vector2(
           Math.cos(angle),
           Math.sin(angle),
         ).normalize();
-      }
 
-      if (this.joystick.force > 0) {
+      if (this.joystick.force > 0)
         switch (true) {
           // right
           case this.joystick.angle >= -20 && this.joystick.angle < 20:
@@ -226,9 +223,7 @@ class scene0 extends Phaser.Scene {
             }
             break;
         }
-      } else {
-        this.player.setVelocityX(0);
-      }
+      else this.player.setVelocityX(0);
     });
 
     this.changeGravityButton = this.add
@@ -262,22 +257,19 @@ class scene0 extends Phaser.Scene {
       this.player.body.velocity.x === 0 &&
       this.player.body.velocity.y === 0 &&
       (this.player.body.blocked.down || this.player.body.blocked.up)
-    ) {
+    )
       this.player.anims.play("standing-still", true);
-    }
   }
 
   jump(player, gravity) {
-    if (gravity > 0) {
+    if (gravity > 0)
       if (player.body.blocked.down) {
         player.setVelocityY(-150);
-      }
-    } else {
-      if (player.body.blocked.up) {
+        player.anims.play("jumping", true);
+      } else if (player.body.blocked.up) {
         player.setVelocityY(150);
+        player.anims.play("jumping", true);
       }
-    }
-    player.anims.play("jumping", true);
   }
 }
 
