@@ -101,7 +101,7 @@ class scene0 extends Phaser.Scene {
 
     this.player = this.physics.add
       .sprite(150, 656, "character", 0)
-      .setPipeline("Light2D");
+      .setPipeline("Light2D")
 
     this.anims.create({
       key: "standing-still",
@@ -146,10 +146,10 @@ class scene0 extends Phaser.Scene {
     this.cameras.main.startFollow(this.player);
 
     this.lights.enable();
-    // this.lights.setAmbientColor(0xcccccc);
+    this.lights.setAmbientColor(0x333333);
     this.lamp = this.lights
-      .addLight(this.player.x, this.player.y, 2000)
-      .setIntensity(3);
+      .addLight(this.player.x, this.player.y, 64)
+      .setIntensity(2);
 
     this.player.setCollideWorldBounds(true);
 
