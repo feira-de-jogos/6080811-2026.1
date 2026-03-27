@@ -56,61 +56,52 @@ class scene0 extends Phaser.Scene {
     this.tilesetAndroid = this.tilemap.addTilesetImage("android");
     */
 
-    this.layerBackground = this.tilemap.createLayer("background", [
-      this.tilesetTileset,
-    ]);
-    this.layerGround = this.tilemap.createLayer("ground", [
-      this.tilesetTileset,
-      this.tilesetObjects,
-    ]);
-    this.layerRoof = this.tilemap.createLayer("roof", [
-      this.tilesetTileset,
-      this.tilesetObjects,
-    ]);
-    this.layerWalls = this.tilemap.createLayer("walls", [
-      this.tilesetTileset,
-      this.tilesetObjects,
-    ]);
-    this.layerWallsUnder = this.tilemap.createLayer("walls_under", [
-      this.tilesetTileset,
-      this.tilesetObjects,
-    ]);
-    this.layerWallsOver = this.tilemap.createLayer("walls_over", [
-      this.tilesetTileset,
-      this.tilesetObjects,
-    ]);
-    this.layerLamps = this.tilemap.createLayer("lamps", [
-      this.tilesetTileset,
-      this.tilesetObjects,
-    ]);
-    this.layerWindows = this.tilemap.createLayer("windows", [
-      this.tilesetTileset,
-      this.tilesetObjects,
-    ]);
-    this.layerObjects = this.tilemap.createLayer("objects", [
-      this.tilesetTileset,
-      this.tilesetObjects,
-    ]);
-    this.layerTeletransport = this.tilemap.createLayer("teletransport", [
-      this.tilesetTileset,
-      this.tilesetObjects,
-    ]);
+    this.layerBackground = this.tilemap
+      .createLayer("background", [this.tilesetTileset])
+      .setPipeline("Light2D");
+    this.layerGround = this.tilemap
+      .createLayer("ground", [this.tilesetTileset, this.tilesetObjects])
+      .setPipeline("Light2D");
+    this.layerRoof = this.tilemap
+      .createLayer("roof", [this.tilesetTileset, this.tilesetObjects])
+      .setPipeline("Light2D");
+    this.layerWalls = this.tilemap
+      .createLayer("walls", [this.tilesetTileset, this.tilesetObjects])
+      .setPipeline("Light2D");
+    this.layerWallsUnder = this.tilemap
+      .createLayer("walls_under", [this.tilesetTileset, this.tilesetObjects])
+      .setPipeline("Light2D");
+    this.layerWallsOver = this.tilemap
+      .createLayer("walls_over", [this.tilesetTileset, this.tilesetObjects])
+      .setPipeline("Light2D");
+    this.layerLamps = this.tilemap
+      .createLayer("lamps", [this.tilesetTileset, this.tilesetObjects])
+      .setPipeline("Light2D");
+    this.layerWindows = this.tilemap
+      .createLayer("windows", [this.tilesetTileset, this.tilesetObjects])
+      .setPipeline("Light2D");
+    this.layerObjects = this.tilemap
+      .createLayer("objects", [this.tilesetTileset, this.tilesetObjects])
+      .setPipeline("Light2D");
+    this.layerTeletransport = this.tilemap
+      .createLayer("teletransport", [this.tilesetTileset, this.tilesetObjects])
+      .setPipeline("Light2D");
     /*
     this.layerCharacter = this.tilemap.createLayer("character", [
       this.tilesetCharacter,
     ]);
     this.layerEnemy = this.tilemap.createLayer("enemy", [this.tilesetAndroid]);
     */
-    this.layerPlatform = this.tilemap.createLayer("platform", [
-      this.tilesetTileset,
-      this.tilesetObjects,
-    ]);
-    this.layerShelf = this.tilemap.createLayer("shelf", [
-      this.tilesetTileset,
-      this.tilesetObjects,
-    ]);
+    this.layerPlatform = this.tilemap
+      .createLayer("platform", [this.tilesetTileset, this.tilesetObjects])
+      .setPipeline("Light2D");
+    this.layerShelf = this.tilemap
+      .createLayer("shelf", [this.tilesetTileset, this.tilesetObjects])
+      .setPipeline("Light2D");
 
-    this.player = this.physics.add.sprite(150, 656, "character", 0);
+    this.player = this.physics.add
+      .sprite(150, 656, "character", 0)
+      .setPipeline("Light2D");
 
     this.anims.create({
       key: "standing-still",
@@ -153,6 +144,12 @@ class scene0 extends Phaser.Scene {
       this.tilemap.heightInPixels,
     );
     this.cameras.main.startFollow(this.player);
+
+    this.lights.enable();
+    // this.lights.setAmbientColor(0xcccccc);
+    this.lamp = this.lights
+      .addLight(this.player.x, this.player.y, 2000)
+      .setIntensity(3);
 
     this.player.setCollideWorldBounds(true);
 
@@ -210,6 +207,7 @@ class scene0 extends Phaser.Scene {
           case this.joystick.angle >= -20 && this.joystick.angle < 20:
             this.player.flipX = false;
             this.player.setVelocityX(200);
+
             if (this.player.body.blocked.down || this.player.body.blocked.up) {
               this.player.anims.play("running", true);
             }
@@ -218,6 +216,7 @@ class scene0 extends Phaser.Scene {
           case this.joystick.angle >= 160 || this.joystick.angle < -160:
             this.player.flipX = true;
             this.player.setVelocityX(-200);
+
             if (this.player.body.blocked.down || this.player.body.blocked.up) {
               this.player.anims.play("running", true);
             }
@@ -259,6 +258,9 @@ class scene0 extends Phaser.Scene {
       (this.player.body.blocked.down || this.player.body.blocked.up)
     )
       this.player.anims.play("standing-still", true);
+
+    this.lamp.x = this.player.x;
+    this.lamp.y = this.player.y;
   }
 
   jump(player, gravity) {
