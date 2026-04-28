@@ -101,7 +101,7 @@ class scene0 extends Phaser.Scene {
 
     this.player = this.physics.add
       .sprite(150, 656, "character", 0)
-      .setPipeline("Light2D")
+      .setPipeline("Light2D");
 
     this.anims.create({
       key: "standing-still",
@@ -229,8 +229,17 @@ class scene0 extends Phaser.Scene {
       .sprite(700, 400, "buttons", 0)
       .setInteractive()
       .on("pointerdown", () => {
-        this.changeGravityButton.setFrame(1);
         this.physics.world.gravity.y *= -1;
+
+        try {
+          this.game.socket.emit("scene0", this.game.room, {
+            gravity: this.physics.world.gravity.y,
+          });
+        } catch (e) {
+          console.error("Error in gravity reversal:", e);
+        }
+
+        this.changeGravityButton.setFrame(1);
         this.player.setFlipY(this.physics.world.gravity.y < 0);
       })
       .on("pointerup", () => {
@@ -249,6 +258,17 @@ class scene0 extends Phaser.Scene {
         this.jumpButton.setFrame(8);
       })
       .setScrollFactor(0);
+
+    this.game.socket.on("scene0", (state) => {
+      if (state.gravity) {
+        this.physics.world.gravity.y = state.gravity;
+        this.player.setFlipY(this.physics.world.gravity.y < 0);
+      }
+
+      if (state.player) {
+        // ...
+      }
+    });
   }
 
   update() {
@@ -261,6 +281,19 @@ class scene0 extends Phaser.Scene {
 
     this.lamp.x = this.player.x;
     this.lamp.y = this.player.y;
+
+    try {
+      this.game.socket.emit("scene0", this.game.room, {
+        player: {
+          x: this.player.body.velocity.x,
+          y: this.player.body.velocity.y,
+          key: this.player.anims.currentAnim.key,
+          frame: this.player.anims.currentFrame.index,
+        },
+      });
+    } catch (e) {
+      console.error("Error updating player:", e);
+    }
   }
 
   jump(player, gravity) {
