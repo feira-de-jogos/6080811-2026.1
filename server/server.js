@@ -21,7 +21,7 @@ io.on("connection", (socket) => {
   });
 
   socket.on("scene0", (room, state) => {
-    socket.to(room).emit("scene0", { ...state });
+    socket.to(room).emit("scene0", state);
   });
 
   socket.on("disconnect", () => {
