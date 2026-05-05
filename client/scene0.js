@@ -285,8 +285,8 @@ class scene0 extends Phaser.Scene {
     try {
       this.game.socket.emit("scene0", this.game.room, {
         player: {
-          x: this.player.body.velocity.x,
-          y: this.player.body.velocity.y,
+          x: this.player.x,
+          y: this.player.y,
           key: this.player.anims.currentAnim.key,
           frame: this.player.anims.currentFrame.index,
         },
