@@ -272,7 +272,7 @@ class scene0 extends Phaser.Scene {
 
           let remotePlayer = this.remotePlayers.find(
             (p) => p.id === state.player.id,
-          )
+          );
 
           if (!remotePlayer) {
             remotePlayer = this.add
@@ -285,9 +285,12 @@ class scene0 extends Phaser.Scene {
           }
 
           remotePlayer.sprite.setPosition(state.player.x, state.player.y);
-          remotePlayer.sprite.setTexture(state.player.texture, state.player.frame);
+
+          if (state.player.animation)
+            remotePlayer.sprite.anims.play(state.player.animation, true);
+          else if (state.player.texture)
+            remotePlayer.sprite.setTexture(state.player.texture);
         } catch (e) {
-          console.log(this.remotePlayers);
           console.error("Error updating remote player:", e);
         }
       }
@@ -314,8 +317,7 @@ class scene0 extends Phaser.Scene {
           texture: "character",
           animation: this.player.anims.currentAnim
             ? this.player.anims.currentAnim.key
-            : "standing-still",
-          frame: this.player.anims.currentFrame.index,
+            : null,
         },
       });
     } catch (e) {
