@@ -5,6 +5,7 @@ class scene0 extends Phaser.Scene {
     this.threshold = 0.1;
     this.speed = 100;
     this.direction = undefined;
+    this.remotePlayers = [];
   }
 
   preload() {
@@ -266,7 +267,29 @@ class scene0 extends Phaser.Scene {
       }
 
       if (state.player) {
-        // ...
+        try {
+          if (state.player.id === this.game.socket.id) return;
+
+          let remotePlayer = this.remotePlayers.find(
+            (p) => p.id === state.player.id,
+          )
+
+          if (!remotePlayer) {
+            remotePlayer = this.add
+              .sprite(state.player.x, state.player.y, "character", 0)
+              .setPipeline("Light2D");
+            this.remotePlayers.push({
+              id: state.player.id,
+              sprite: remotePlayer,
+            });
+          }
+
+          remotePlayer.sprite.setPosition(state.player.x, state.player.y);
+          remotePlayer.sprite.setTexture(state.player.texture, state.player.frame);
+        } catch (e) {
+          console.log(this.remotePlayers);
+          console.error("Error updating remote player:", e);
+        }
       }
     });
   }
@@ -285,9 +308,13 @@ class scene0 extends Phaser.Scene {
     try {
       this.game.socket.emit("scene0", this.game.room, {
         player: {
+          id: this.game.socket.id,
           x: this.player.x,
           y: this.player.y,
-          key: this.player.anims.currentAnim.key,
+          texture: "character",
+          animation: this.player.anims.currentAnim
+            ? this.player.anims.currentAnim.key
+            : "standing-still",
           frame: this.player.anims.currentFrame.index,
         },
       });
