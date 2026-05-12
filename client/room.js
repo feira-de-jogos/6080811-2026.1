@@ -10,13 +10,15 @@ class room extends Phaser.Scene {
 
   create() {
     if (this.game.room) {
-      this.game.socket.emit("start-game", this.game.room, this.game.socket.id);
-
       this.scene.stop("room");
-      this.scene.start("scene0");
+      this.scene.start("player");
     } else {
       this.add.image(400, 225, "white");
       this.game.room = (Math.random() * 10000).toString().split(".")[0];
+      this.add.text(50, 50, this.game.room, {
+        font: "32px Arial",
+        fill: "#000",
+      })
 
       new QRCode(this.qrcodeContainer, {
         text: location.href + "?room=" + this.game.room,
@@ -27,10 +29,19 @@ class room extends Phaser.Scene {
     console.log("Joining room:", this.game.room);
     this.game.socket.emit("join-room", this.game.room);
 
-    this.game.socket.on("start-game", (player) => {
-      console.log("Game started in room:", this.game.room, "by player:", player);
+    this.game.socket.on("player-selected", (player) => {
+      console.log(
+        "Player selected in room:",
+        this.game.room,
+        "player:",
+        player,
+      );
+
+      if (player === "android") this.game.localPlayer = "character";
+      else this.game.localPlayer = "android";
 
       this.qrcodeContainer.remove();
+
       this.scene.stop("room");
       this.scene.start("scene0");
     });

@@ -101,11 +101,33 @@ class scene0 extends Phaser.Scene {
       .setPipeline("Light2D");
 
     this.player = this.physics.add
-      .sprite(150, 656, "character", 0)
+      .sprite(150, (this.game.localPlayer === "character" ? 656 : 300), this.game.localPlayer, 0)
       .setPipeline("Light2D");
 
     this.anims.create({
-      key: "standing-still",
+      key: "android-standing-still",
+      frames: this.anims.generateFrameNumbers("android", { start: 7, end: 10 }),
+      frameRate: 5,
+      repeat: -1,
+    });
+    this.anims.create({
+      key: "android-moving",
+      frames: this.anims.generateFrameNumbers("android", { start: 0, end: 5 }),
+      frameRate: 10,
+      repeat: -1,
+    });
+    this.anims.create({
+      key: "android-shooting",
+      frames: this.anims.generateFrameNumbers("android", {
+        start: 14,
+        end: 19,
+      }),
+      frameRate: 10,
+      repeat: -1,
+    });
+
+    this.anims.create({
+      key: "character-standing-still",
       frames: this.anims.generateFrameNumbers("character", {
         start: 0,
         end: 3,
@@ -114,7 +136,7 @@ class scene0 extends Phaser.Scene {
       repeat: -1,
     });
     this.anims.create({
-      key: "running",
+      key: "character-moving",
       frames: this.anims.generateFrameNumbers("character", {
         start: 8,
         end: 15,
@@ -123,7 +145,7 @@ class scene0 extends Phaser.Scene {
       repeat: -1,
     });
     this.anims.create({
-      key: "jumping",
+      key: "character-jumping",
       frames: this.anims.generateFrameNumbers("character", {
         start: 40,
         end: 47,
@@ -210,7 +232,10 @@ class scene0 extends Phaser.Scene {
             this.player.setVelocityX(200);
 
             if (this.player.body.blocked.down || this.player.body.blocked.up) {
-              this.player.anims.play("running", true);
+              this.player.anims.play(
+                this.game.localPlayer + "-moving",
+                true,
+              );
             }
             break;
           // left
@@ -219,7 +244,10 @@ class scene0 extends Phaser.Scene {
             this.player.setVelocityX(-200);
 
             if (this.player.body.blocked.down || this.player.body.blocked.up) {
-              this.player.anims.play("running", true);
+              this.player.anims.play(
+                this.game.localPlayer + "-moving",
+                true,
+              );
             }
             break;
         }
@@ -248,15 +276,15 @@ class scene0 extends Phaser.Scene {
       })
       .setScrollFactor(0);
 
-    this.jumpButton = this.add
+    this.actionButton = this.add
       .sprite(750, 400, "buttons", 8)
       .setInteractive()
       .on("pointerdown", () => {
-        this.jumpButton.setFrame(9);
-        this.jump(this.player, this.physics.world.gravity.y);
+        this.actionButton.setFrame(9);
+        this.action(this.player, this.physics.world.gravity.y);
       })
       .on("pointerup", () => {
-        this.jumpButton.setFrame(8);
+        this.actionButton.setFrame(8);
       })
       .setScrollFactor(0);
 
@@ -302,7 +330,10 @@ class scene0 extends Phaser.Scene {
       this.player.body.velocity.y === 0 &&
       (this.player.body.blocked.down || this.player.body.blocked.up)
     )
-      this.player.anims.play("standing-still", true);
+      this.player.anims.play(
+        this.game.localPlayer + "-standing-still",
+        true,
+      );
 
     this.lamp.x = this.player.x;
     this.lamp.y = this.player.y;
@@ -324,15 +355,16 @@ class scene0 extends Phaser.Scene {
     }
   }
 
-  jump(player, gravity) {
-    if (gravity > 0)
+  action(player, gravity) {
+    if (gravity > 0 && this.game.localPlayer === "character") {
       if (player.body.blocked.down) {
         player.setVelocityY(-150);
-        player.anims.play("jumping", true);
+        player.anims.play(this.game.localPlayer + "-jumping", true);
       } else if (player.body.blocked.up) {
         player.setVelocityY(150);
-        player.anims.play("jumping", true);
+        player.anims.play(this.game.localPlayer + "-jumping", true);
       }
+    }
   }
 }
 
