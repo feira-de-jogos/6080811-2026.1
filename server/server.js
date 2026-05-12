@@ -20,6 +20,11 @@ io.on("connection", (socket) => {
     console.log(`User ${socket.id} joined room ${room}`);
   });
 
+  socket.on("start-game", (room, player) => {
+    console.log(`Starting game in room ${room} by user ${player}`);
+    socket.to(room).emit("start-game", player);
+  });
+
   socket.on("scene0", (room, state) => {
     socket.to(room).emit("scene0", state);
   });

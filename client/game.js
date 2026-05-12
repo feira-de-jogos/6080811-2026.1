@@ -1,5 +1,6 @@
 import config from "./config.js";
 import start from "./start.js";
+import room from "./room.js";
 import scene0 from "./scene0.js";
 
 class Game extends Phaser.Game {
@@ -7,6 +8,7 @@ class Game extends Phaser.Game {
     super(config);
 
     this.scene.add("start", start);
+    this.scene.add("room", room);
     this.scene.add("scene0", scene0);
     this.scene.start("start");
 
@@ -18,11 +20,8 @@ class Game extends Phaser.Game {
       this.socket = io();
     }
 
-    this.room = "0";
     this.socket.on("connect", () => {
       console.log("Socket ID:", this.socket.id);
-
-      this.socket.emit("join-room", this.room);
     });
   }
 }

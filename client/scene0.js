@@ -285,7 +285,6 @@ class scene0 extends Phaser.Scene {
           }
 
           remotePlayer.sprite.setPosition(state.player.x, state.player.y);
-
           if (state.player.animation)
             remotePlayer.sprite.anims.play(state.player.animation, true);
           else if (state.player.texture)
