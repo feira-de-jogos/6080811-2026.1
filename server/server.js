@@ -30,6 +30,11 @@ io.on("connection", (socket) => {
     socket.to(room).emit("start-game", player);
   });
 
+  socket.on("change-scene", (room, scene) => {
+    console.log(`Changing scene to ${scene} in room ${room}`);
+    socket.to(room).emit("change-scene", scene);
+  });
+
   socket.on("scene0", (room, state) => {
     socket.to(room).emit("scene0", state);
   });
