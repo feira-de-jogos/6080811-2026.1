@@ -38,7 +38,15 @@ class player extends Phaser.Scene {
       .setScale(3)
       .setInteractive()
       .on("pointerdown", () => {
-        this.changeScene("android");
+        console.log("Android player selected");
+        this.game.localPlayer = "android";
+        this.game.socket.emit(
+          "select-player",
+          this.game.room,
+          this.game.localPlayer,
+        );
+        this.scene.stop("player");
+        this.scene.start("scene0");
       });
     this.android.play("android");
 
@@ -47,20 +55,17 @@ class player extends Phaser.Scene {
       .setScale(3)
       .setInteractive()
       .on("pointerdown", () => {
-        this.changeScene("character");
+        console.log("Character player selected");
+        this.game.localPlayer = "character";
+        this.game.socket.emit(
+          "select-player",
+          this.game.room,
+          this.game.localPlayer,
+        );
+        this.scene.stop("player");
+        this.scene.start("scene0");
       });
     this.character.play("character");
-  }
-
-  changeScene(player) {
-    this.game.localPlayer = player;
-    this.game.socket.emit(
-      "select-player",
-      this.game.room,
-      this.game.localPlayer,
-    );
-    this.scene.stop("player");
-    this.scene.start("scene0");
   }
 }
 

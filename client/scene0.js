@@ -101,7 +101,7 @@ class scene0 extends Phaser.Scene {
       .setPipeline("Light2D");
 
     this.player = this.physics.add
-      .sprite(150, (this.game.localPlayer === "character" ? 656 : 300), this.game.localPlayer, 0)
+      .sprite(150, (this.game.localPlayer === "character" ? 656 : 320), this.game.localPlayer, 0)
       .setPipeline("Light2D");
 
     this.anims.create({
