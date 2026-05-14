@@ -1,5 +1,6 @@
 import config from "./config.js";
 import start from "./start.js";
+import preloader from "./preloader.js";
 import room from "./room.js";
 import player from "./player.js";
 import scene0 from "./scene0.js";
@@ -9,6 +10,7 @@ class Game extends Phaser.Game {
     super(config);
 
     this.scene.add("start", start);
+    this.scene.add("preloader", preloader);
     this.scene.add("room", room);
     this.scene.add("player", player);
     this.scene.add("scene0", scene0);

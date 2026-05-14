@@ -4,21 +4,18 @@ class room extends Phaser.Scene {
     this.qrcodeContainer = document.getElementById("qr-code");
   }
 
-  preload() {
-    this.load.image("white", "assets/white.png");
-  }
-
   create() {
     if (this.game.room) {
       this.scene.stop("room");
       this.scene.start("player");
     } else {
-      this.add.image(400, 225, "white");
+      this.add.image(400, 225, "room-brackground");
       this.game.room = (Math.random() * 10000).toString().split(".")[0];
       this.add.text(50, 50, this.game.room, {
-        font: "32px Arial",
-        fill: "#000",
-      })
+        fontFamily: "pixelify-sans",
+        fontSize: "32px",
+        fill: "#000000",
+      });
 
       new QRCode(this.qrcodeContainer, {
         text: location.href + "?room=" + this.game.room,
@@ -43,7 +40,14 @@ class room extends Phaser.Scene {
       this.qrcodeContainer.remove();
 
       this.scene.stop("room");
-      this.scene.start("scene0");
+      let artifacts = [];
+      for (let x = 0; x < 50; x++) {
+        artifacts.push({
+          x: Math.random(),
+          y: Math.random(),
+        });
+      }
+      this.scene.start("scene0", artifacts);
     });
   }
 }

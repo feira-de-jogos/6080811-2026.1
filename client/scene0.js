@@ -8,45 +8,7 @@ class scene0 extends Phaser.Scene {
     this.remotePlayers = [];
   }
 
-  preload() {
-    this.load.setPath("assets/");
-
-    this.load.tilemapTiledJSON("map", "map.json");
-
-    this.load.spritesheet("android", "SpaceStation_Android_Sheet.png", {
-      frameWidth: 32,
-      frameHeight: 32,
-    });
-    this.load.spritesheet("character", "SpaceStation_Character_Sheet.png", {
-      frameWidth: 32,
-      frameHeight: 32,
-    });
-    this.load.image("objects", "SpaceStation_Objects.png");
-    this.load.spritesheet("projectiles", "SpaceStation_Projectiles_Sheet.png", {
-      frameWidth: 32,
-      frameHeight: 32,
-    });
-    this.load.image("tileset", "SpaceStation_Tileset.png");
-    this.load.spritesheet("turret", "SpaceStation_Turret_Sheet.png", {
-      frameWidth: 32,
-      frameHeight: 32,
-    });
-    this.load.spritesheet("buttons", "buttons.png", {
-      frameWidth: 32,
-      frameHeight: 32,
-    });
-
-    this.load.audio("music", "music.mp3");
-    this.load.audio("laser", "laser.mp3");
-
-    this.load.plugin(
-      "rexvirtualjoystickplugin",
-      "../rexvirtualjoystickplugin.min.js",
-      true,
-    );
-  }
-
-  create() {
+  create(artifacts) {
     this.tilemap = this.make.tilemap({ key: "map" });
 
     this.tilesetTileset = this.tilemap.addTilesetImage("tileset");
@@ -57,52 +19,65 @@ class scene0 extends Phaser.Scene {
     this.tilesetAndroid = this.tilemap.addTilesetImage("android");
     */
 
-    this.layerBackground = this.tilemap
-      .createLayer("background", [this.tilesetTileset])
-      .setPipeline("Light2D");
-    this.layerGround = this.tilemap
-      .createLayer("ground", [this.tilesetTileset, this.tilesetObjects])
-      .setPipeline("Light2D");
-    this.layerRoof = this.tilemap
-      .createLayer("roof", [this.tilesetTileset, this.tilesetObjects])
-      .setPipeline("Light2D");
-    this.layerWalls = this.tilemap
-      .createLayer("walls", [this.tilesetTileset, this.tilesetObjects])
-      .setPipeline("Light2D");
-    this.layerWallsUnder = this.tilemap
-      .createLayer("walls_under", [this.tilesetTileset, this.tilesetObjects])
-      .setPipeline("Light2D");
-    this.layerWallsOver = this.tilemap
-      .createLayer("walls_over", [this.tilesetTileset, this.tilesetObjects])
-      .setPipeline("Light2D");
-    this.layerLamps = this.tilemap
-      .createLayer("lamps", [this.tilesetTileset, this.tilesetObjects])
-      .setPipeline("Light2D");
-    this.layerWindows = this.tilemap
-      .createLayer("windows", [this.tilesetTileset, this.tilesetObjects])
-      .setPipeline("Light2D");
-    this.layerObjects = this.tilemap
-      .createLayer("objects", [this.tilesetTileset, this.tilesetObjects])
-      .setPipeline("Light2D");
-    this.layerTeletransport = this.tilemap
-      .createLayer("teletransport", [this.tilesetTileset, this.tilesetObjects])
-      .setPipeline("Light2D");
+    this.layerBackground = this.tilemap.createLayer("background", [
+      this.tilesetTileset,
+    ]);
+    this.layerGround = this.tilemap.createLayer("ground", [
+      this.tilesetTileset,
+      this.tilesetObjects,
+    ]);
+    this.layerRoof = this.tilemap.createLayer("roof", [
+      this.tilesetTileset,
+      this.tilesetObjects,
+    ]);
+    this.layerWalls = this.tilemap.createLayer("walls", [
+      this.tilesetTileset,
+      this.tilesetObjects,
+    ]);
+    this.layerWallsUnder = this.tilemap.createLayer("walls_under", [
+      this.tilesetTileset,
+      this.tilesetObjects,
+    ]);
+    this.layerWallsOver = this.tilemap.createLayer("walls_over", [
+      this.tilesetTileset,
+      this.tilesetObjects,
+    ]);
+    this.layerLamps = this.tilemap.createLayer("lamps", [
+      this.tilesetTileset,
+      this.tilesetObjects,
+    ]);
+    this.layerWindows = this.tilemap.createLayer("windows", [
+      this.tilesetTileset,
+      this.tilesetObjects,
+    ]);
+    this.layerObjects = this.tilemap.createLayer("objects", [
+      this.tilesetTileset,
+      this.tilesetObjects,
+    ]);
+    this.layerTeletransport = this.tilemap.createLayer("teletransport", [
+      this.tilesetTileset,
+      this.tilesetObjects,
+    ]);
     /*
     this.layerCharacter = this.tilemap.createLayer("character", [
       this.tilesetCharacter,
     ]);
     this.layerEnemy = this.tilemap.createLayer("enemy", [this.tilesetAndroid]);
     */
-    this.layerPlatform = this.tilemap
-      .createLayer("platform", [this.tilesetTileset, this.tilesetObjects])
-      .setPipeline("Light2D");
-    this.layerShelf = this.tilemap
-      .createLayer("shelf", [this.tilesetTileset, this.tilesetObjects])
-      .setPipeline("Light2D");
-
-    this.player = this.physics.add
-      .sprite(150, (this.game.localPlayer === "character" ? 656 : 320), this.game.localPlayer, 0)
-      .setPipeline("Light2D");
+    this.layerPlatform = this.tilemap.createLayer("platform", [
+      this.tilesetTileset,
+      this.tilesetObjects,
+    ]);
+    this.layerShelf = this.tilemap.createLayer("shelf", [
+      this.tilesetTileset,
+      this.tilesetObjects,
+    ]);
+    this.player = this.physics.add.sprite(
+      150,
+      this.game.localPlayer === "character" ? 656 : 320,
+      this.game.localPlayer,
+      0,
+    );
 
     this.anims.create({
       key: "android-standing-still",
@@ -154,6 +129,33 @@ class scene0 extends Phaser.Scene {
       repeat: -1,
     });
 
+    this.anims.create({
+      key: "artifact-projectiles",
+      frames: this.anims.generateFrameNumbers("projectiles", {
+        start: 0,
+        end: 6,
+      }),
+      frameRate: 15,
+      repeat: -1,
+    });
+
+    this.artifacts = this.physics.add.group();
+
+    if (Object.keys(artifacts).length > 0) {
+      artifacts.forEach((artifact) => {
+        let x = artifact.x * this.tilemap.widthInPixels;
+        let y = artifact.y * this.tilemap.heightInPixels;
+        this.artifacts.create(x, y, "projectiles");
+      });
+
+      this.artifacts.getChildren().forEach((artifact) => {
+        artifact.body.setAllowGravity(false);
+        artifact.anims.play("artifact-projectiles");
+      });
+
+      this.game.socket.emit("scene0", this.game.room, { artifacts });
+    }
+
     this.physics.world.setBounds(
       0,
       0,
@@ -167,12 +169,6 @@ class scene0 extends Phaser.Scene {
       this.tilemap.heightInPixels,
     );
     this.cameras.main.startFollow(this.player);
-
-    this.lights.enable();
-    this.lights.setAmbientColor(0x333333);
-    this.lamp = this.lights
-      .addLight(this.player.x, this.player.y, 64)
-      .setIntensity(2);
 
     this.player.setCollideWorldBounds(true);
 
@@ -203,6 +199,21 @@ class scene0 extends Phaser.Scene {
       }
     });
 
+    this.physics.add.overlap(
+      this.player,
+      this.artifacts,
+      (player, artifact) => {
+        let index = this.artifacts.getChildren().indexOf(artifact);
+        artifact.disableBody(true, true);
+        
+        this.game.socket.emit("scene0", this.game.room, {
+          artifactCollected: index,
+        });
+      },
+      null,
+      this,
+    );
+
     this.music = this.sound.add("music", { loop: true }).play();
     this.laser = this.sound.add("laser");
 
@@ -232,10 +243,7 @@ class scene0 extends Phaser.Scene {
             this.player.setVelocityX(200);
 
             if (this.player.body.blocked.down || this.player.body.blocked.up) {
-              this.player.anims.play(
-                this.game.localPlayer + "-moving",
-                true,
-              );
+              this.player.anims.play(this.game.localPlayer + "-moving", true);
             }
             break;
           // left
@@ -244,10 +252,7 @@ class scene0 extends Phaser.Scene {
             this.player.setVelocityX(-200);
 
             if (this.player.body.blocked.down || this.player.body.blocked.up) {
-              this.player.anims.play(
-                this.game.localPlayer + "-moving",
-                true,
-              );
+              this.player.anims.play(this.game.localPlayer + "-moving", true);
             }
             break;
         }
@@ -289,6 +294,28 @@ class scene0 extends Phaser.Scene {
       .setScrollFactor(0);
 
     this.game.socket.on("scene0", (state) => {
+      if (state.artifacts) {
+        state.artifacts.forEach((artifact) => {
+          let x = artifact.x * this.tilemap.widthInPixels;
+          let y = artifact.y * this.tilemap.heightInPixels;
+          this.artifacts.create(x, y, "projectiles");
+        });
+
+        this.artifacts.getChildren().forEach((artifact) => {
+          artifact;
+          artifact.body.setAllowGravity(false);
+          artifact.anims.play("artifact-projectiles");
+        });
+      }
+
+      if (state.artifactCollected) {
+        let artifact = this.artifacts.getChildren()[state.artifactCollected];
+
+        if (artifact) {
+          artifact.disableBody(true, true);
+        }
+      }
+
       if (state.gravity) {
         this.physics.world.gravity.y = state.gravity;
         this.player.setFlipY(this.physics.world.gravity.y < 0);
@@ -303,9 +330,13 @@ class scene0 extends Phaser.Scene {
           );
 
           if (!remotePlayer) {
-            remotePlayer = this.add
-              .sprite(state.player.x, state.player.y, "character", 0)
-              .setPipeline("Light2D");
+            remotePlayer = this.add.sprite(
+              state.player.x,
+              state.player.y,
+              "character",
+              0,
+            );
+
             this.remotePlayers.push({
               id: state.player.id,
               sprite: remotePlayer,
@@ -330,13 +361,7 @@ class scene0 extends Phaser.Scene {
       this.player.body.velocity.y === 0 &&
       (this.player.body.blocked.down || this.player.body.blocked.up)
     )
-      this.player.anims.play(
-        this.game.localPlayer + "-standing-still",
-        true,
-      );
-
-    this.lamp.x = this.player.x;
-    this.lamp.y = this.player.y;
+      this.player.anims.play(this.game.localPlayer + "-standing-still", true);
 
     try {
       this.game.socket.emit("scene0", this.game.room, {

@@ -10,16 +10,16 @@ class start extends Phaser.Scene {
 
   preload() {
     this.load.setPath("assets/");
-    this.load.image("start", "start-background.png");
+    this.load.image("start-background", "start-background.png");
   }
 
   create() {
     this.add
-      .image(400, 225, "start")
+      .image(400, 225, "start-background")
       .setInteractive()
       .on("pointerdown", () => {
         this.scene.stop("start");
-        this.scene.start("room");
+        this.scene.start("preloader");
       });
   }
 }

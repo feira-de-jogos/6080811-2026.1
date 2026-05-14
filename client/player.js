@@ -3,19 +3,17 @@ class player extends Phaser.Scene {
     super("player");
   }
 
-  preload() {
-    this.load.setPath("assets/");
-    this.load.spritesheet("android", "SpaceStation_Android_Sheet.png", {
-      frameWidth: 32,
-      frameHeight: 32,
-    });
-    this.load.spritesheet("character", "SpaceStation_Character_Sheet.png", {
-      frameWidth: 32,
-      frameHeight: 32,
-    });
-  }
-
   create() {
+    this.add.image(400, 225, "start-background").postFX.addBlur(5);
+
+    this.add
+      .text(400, 50, "Escolha seu personagem:", {
+        fontFamily: "pixelify-sans",
+        fontSize: "64px",
+        fill: "#ffffff",
+      })
+      .setOrigin(0.5);
+
     this.anims.create({
       key: "android",
       frames: this.anims.generateFrameNumbers("android", { start: 0, end: 5 }),
