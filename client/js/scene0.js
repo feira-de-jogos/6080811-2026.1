@@ -205,7 +205,7 @@ class scene0 extends Phaser.Scene {
       (player, artifact) => {
         let index = this.artifacts.getChildren().indexOf(artifact);
         artifact.disableBody(true, true);
-        
+
         this.game.socket.emit("scene0", this.game.room, {
           artifactCollected: index,
         });
@@ -343,6 +343,8 @@ class scene0 extends Phaser.Scene {
             });
           }
 
+          remotePlayer.sprite.setFlipX(state.player.flip.x);
+          remotePlayer.sprite.setFlipY(state.player.flip.y);
           remotePlayer.sprite.setPosition(state.player.x, state.player.y);
           if (state.player.animation)
             remotePlayer.sprite.anims.play(state.player.animation, true);
@@ -370,6 +372,10 @@ class scene0 extends Phaser.Scene {
           x: this.player.x,
           y: this.player.y,
           texture: "character",
+          flip: {
+            x: this.player.flipX,
+            y: this.player.flipY,
+          },
           animation: this.player.anims.currentAnim
             ? this.player.anims.currentAnim.key
             : null,

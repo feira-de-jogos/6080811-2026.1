@@ -48,7 +48,7 @@ class preloader extends Phaser.Scene {
     this.load.audio("laser", "laser.mp3");
     this.load.plugin(
       "rexvirtualjoystickplugin",
-      "../rexvirtualjoystickplugin.min.js",
+      "../js/rexvirtualjoystickplugin.min.js",
       true,
     );
   }
