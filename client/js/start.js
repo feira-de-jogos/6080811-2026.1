@@ -5,7 +5,10 @@ class start extends Phaser.Scene {
 
   init() {
     let room = new URLSearchParams(location.search).get("room");
-    if (room) this.game.room = room;
+    if (room) {
+      this.game.room = room
+      this.game.socket.emit("join-room", this.game.room);
+    };
   }
 
   preload() {
