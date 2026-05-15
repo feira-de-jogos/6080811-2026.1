@@ -5,24 +5,20 @@ class room extends Phaser.Scene {
   }
 
   create() {
-    if (this.game.room) {
-      this.scene.stop("room");
-      this.scene.start("player");
-    } else {
-      this.add.image(400, 225, "room-brackground");
-      this.game.room = (Math.random() * 10000).toString().split(".")[0];
-      this.add.text(50, 50, this.game.room, {
-        fontFamily: "pixelify-sans",
-        fontSize: "32px",
-        fill: "#000000",
-      });
+    this.add.image(400, 225, "room-brackground");
+    this.game.room = (Math.random() * 10000).toString().split(".")[0];
+    this.add.text(50, 50, this.game.room, {
+      fontFamily: "pixelify-sans",
+      fontSize: "32px",
+      fill: "#000000",
+    });
 
-      new QRCode(this.qrcodeContainer, {
-        text: location.href + "?room=" + this.game.room,
-        width: 450,
-        height: 450,
-      });
-    }
+    new QRCode(this.qrcodeContainer, {
+      text: location.href + "?room=" + this.game.room,
+      width: 450,
+      height: 450,
+    });
+
     console.log("Joining room:", this.game.room);
     this.game.socket.emit("join-room", this.game.room);
 
