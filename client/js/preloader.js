@@ -19,7 +19,7 @@ class preloader extends Phaser.Scene {
 
     this.load.font("pixelify-sans", "pixelify-sans.ttf");
 
-    this.load.image("room-brackground", "room-background.png");
+    this.load.image("room-background", "room-background.png");
 
     this.load.tilemapTiledJSON("map", "map.json");
     this.load.spritesheet("android", "SpaceStation_Android_Sheet.png", {
