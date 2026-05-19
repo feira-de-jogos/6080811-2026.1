@@ -9,6 +9,9 @@ class scene0 extends Phaser.Scene {
   }
 
   create(artifacts) {
+    this.music = this.sound.add("music", { loop: true }).play();
+    this.laser = this.sound.add("laser");
+
     this.tilemap = this.make.tilemap({ key: "map" });
 
     this.tilesetTileset = this.tilemap.addTilesetImage("tileset");
@@ -72,6 +75,7 @@ class scene0 extends Phaser.Scene {
       this.tilesetTileset,
       this.tilesetObjects,
     ]);
+
     this.player = this.physics.add.sprite(
       150,
       this.game.localPlayer === "character" ? 656 : 320,
@@ -81,16 +85,24 @@ class scene0 extends Phaser.Scene {
 
     this.anims.create({
       key: "android-standing-still",
-      frames: this.anims.generateFrameNumbers("android", { start: 7, end: 10 }),
+      frames: this.anims.generateFrameNumbers("android", {
+        start: 7,
+        end: 10,
+      }),
       frameRate: 5,
       repeat: -1,
     });
+
     this.anims.create({
       key: "android-moving",
-      frames: this.anims.generateFrameNumbers("android", { start: 0, end: 5 }),
+      frames: this.anims.generateFrameNumbers("android", {
+        start: 0,
+        end: 5,
+      }),
       frameRate: 10,
       repeat: -1,
     });
+
     this.anims.create({
       key: "android-shooting",
       frames: this.anims.generateFrameNumbers("android", {
@@ -110,6 +122,7 @@ class scene0 extends Phaser.Scene {
       frameRate: 5,
       repeat: -1,
     });
+
     this.anims.create({
       key: "character-moving",
       frames: this.anims.generateFrameNumbers("character", {
@@ -119,6 +132,7 @@ class scene0 extends Phaser.Scene {
       frameRate: 10,
       repeat: -1,
     });
+
     this.anims.create({
       key: "character-jumping",
       frames: this.anims.generateFrameNumbers("character", {
@@ -162,12 +176,14 @@ class scene0 extends Phaser.Scene {
       this.tilemap.widthInPixels,
       this.tilemap.heightInPixels,
     );
+
     this.cameras.main.setBounds(
       0,
       0,
       this.tilemap.widthInPixels,
       this.tilemap.heightInPixels,
     );
+
     this.cameras.main.startFollow(this.player);
 
     this.player.setCollideWorldBounds(true);
@@ -213,9 +229,6 @@ class scene0 extends Phaser.Scene {
       null,
       this,
     );
-
-    this.music = this.sound.add("music", { loop: true }).play();
-    this.laser = this.sound.add("laser");
 
     this.joystick = this.plugins.get("rexvirtualjoystickplugin").add(this, {
       x: 100,
@@ -265,14 +278,6 @@ class scene0 extends Phaser.Scene {
       .on("pointerdown", () => {
         this.physics.world.gravity.y *= -1;
 
-        try {
-          this.game.socket.emit("scene0", this.game.room, {
-            gravity: this.physics.world.gravity.y,
-          });
-        } catch (e) {
-          console.error("Error in gravity reversal:", e);
-        }
-
         this.changeGravityButton.setFrame(1);
         this.player.setFlipY(this.physics.world.gravity.y < 0);
       })
@@ -314,11 +319,6 @@ class scene0 extends Phaser.Scene {
         if (artifact) {
           artifact.disableBody(true, true);
         }
-      }
-
-      if (state.gravity) {
-        this.physics.world.gravity.y = state.gravity;
-        this.player.setFlipY(this.physics.world.gravity.y < 0);
       }
 
       if (state.player) {
